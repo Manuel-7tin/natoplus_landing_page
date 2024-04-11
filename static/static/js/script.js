@@ -1,4 +1,5 @@
-// Hello 
+// Hello
+console.log('Hello') 
 $(function(){
     $('form').on('submit',function(event){
         event.preventDefault();
@@ -11,20 +12,19 @@ $(function(){
             }
     
             if( isValidEmail($('.email').val()) ){
-                $('.email').attr('disabled','true');
+                $('.name, .email').attr('disabled',true);
                 $('.submit').html("Please wait...");
                 setTimeout(() => {
                     $('.submit').html("Joined");
-                    $('.email').attr('disabled','false');
-                    $('.email').val('');
+                    $('.name, .email').attr('disabled',false);
+                    $('.name, .email').val('');
                     next();
                 }, 5000);
             }
     
             const next = () => {
-                $('.email').html("Joined");
                 setTimeout(() => {
-                    // window.location.href = '/';
+                    $('.submit').html("Join");
                 }, 2000);
             }
         }
@@ -33,4 +33,3 @@ $(function(){
         $('.submit').on('click', process)
     })
 })
-console.log('Hello')
