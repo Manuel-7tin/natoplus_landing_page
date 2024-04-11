@@ -78,7 +78,9 @@ body{
                     }
                 }
                 .input{
-                    .email{
+                    display: flex;
+                    flex-direction: column;
+                    .name,.email{
                         background: none;
                         border: none;
                         border-radius: 10px;

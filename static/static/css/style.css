@@ -1,6 +1,6 @@
 @font-face {
   font-family: "thefont";
-  src: url("../assets/BlackHanSans-Regular.ttf") format("truetype");
+  src: url("../BlackHanSans-Regular.ttf") format("truetype");
 }
 * {
   box-sizing: border-box;
@@ -12,7 +12,7 @@
 
 body {
   background: linear-gradient(113deg, #21edff 0%, rgb(77, 72, 219) 52.2882959864%, rgb(106, 48, 150) 83.5964443447%);
-  background-image: url(../assets/bg_copy.png);
+  background-image: url(/bg_copy.png);
   background-position: center;
   background-size: contain;
   height: 100vh;
@@ -20,12 +20,12 @@ body {
 }
 @media (max-width: 768px) {
   body {
-    background-image: url(../assets/bg.webp);
+    background-image: url(/bg.webp);
     background-position: center;
   }
 }
 body .body-background .first, body .body-background .second, body .body-background .third, body .body-background .fourth {
-  background: url(../assets/transparent_logo.png);
+  background: url(/transparent_logo.png);
   background-repeat: repeat !important;
   background-size: cover !important;
   cursor: pointer;
@@ -42,7 +42,7 @@ body .container {
   margin: 20vh auto;
 }
 body .container::before {
-  background: url(../assets/transparent_logo.png);
+  background: url(/transparent_logo.png);
   background-size: cover;
   content: "";
   height: 40vh;
@@ -81,7 +81,11 @@ body .container .content form .info h1, body .container .content form .info h2, 
   color: #fff;
   margin: 10px;
 }
-body .container .content form .input .email {
+body .container .content form .input {
+  display: flex;
+  flex-direction: column;
+}
+body .container .content form .input .name, body .container .content form .input .email {
   background: none;
   border: none;
   border-radius: 10px;
@@ -94,12 +98,12 @@ body .container .content form .input .email {
   padding: 10px;
   width: 50vw;
 }
-body .container .content form .input .email::-moz-placeholder {
+body .container .content form .input .name::-moz-placeholder, body .container .content form .input .email::-moz-placeholder {
   color: #fff;
   font-size: 1em;
   text-align: center;
 }
-body .container .content form .input .email::placeholder {
+body .container .content form .input .name::placeholder, body .container .content form .input .email::placeholder {
   color: #fff;
   font-size: 1em;
   text-align: center;
