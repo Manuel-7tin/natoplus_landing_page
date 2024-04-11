@@ -9,8 +9,9 @@ from email.message import EmailMessage
 import ssl
 
 # Pseudo-constants
-MAIL_ADDRESS = "opolopothings@gmail.com"
-MAIL_APP_PW = "lozqjciqzvsibxza"
+MAIL_ADDRESS = "natoplus.co@gmail.com"
+MAIL_APP_PW = "ixrusxxetfjhwfxm"
+# MAIL_APP_PW = "lozqjciqzvsibxza"
 
 # Create flask application
 app = Flask(__name__)
@@ -46,12 +47,16 @@ def read_data(llist, class_):
         llist.extend(all_mails)
 
 
-def send_welcome_mail(name, email):
+def send_welcome_mail(name, email, new=True):
     message = EmailMessage()
     message["From"] = MAIL_ADDRESS
     message["To"] = email
     message["Subject"] = "Newsletter signup confirmation"
-    message.set_content(f"Welcome dear {name}\n\nYou have succesfully signed up for our newsletter😊")
+    message.add_header("Reply-To", "noreply@natomail.com")
+    if new:
+        message.set_content(f"Welcome dear {name}\n\nYou have succesfully signed up for our newsletter😊")
+    else:
+        message.set_content(f"Welcome dear {name}\n\nYou were signed up for our newsletter before now😊")
 
     context = ssl.create_default_context()
 
@@ -75,7 +80,7 @@ def home():
                 db.session.commit()
             send_welcome_mail(name="customer", email=user_email)
         else:
-            pass  # for now
+            send_welcome_mail(name="customer", email=user_email, new=False)
     return render_template("index.html")
 
 
