@@ -1,6 +1,6 @@
 @font-face {
   font-family: "thefont";
-  src: url("../BlackHanSans-Regular.ttf") format("truetype");
+  src: url("../assets/BlackHanSans-Regular.ttf") format("truetype");
 }
 * {
   box-sizing: border-box;
@@ -12,7 +12,7 @@
 
 body {
   background: linear-gradient(113deg, #21edff 0%, rgb(77, 72, 219) 52.2882959864%, rgb(106, 48, 150) 83.5964443447%);
-  background-image: url(/bg_copy.png);
+  background-image: url(../assets/bg_copy.png);
   background-position: center;
   background-size: contain;
   height: 100vh;
@@ -20,12 +20,12 @@ body {
 }
 @media (max-width: 768px) {
   body {
-    background-image: url(/bg.webp);
+    background-image: url(../assets/bg.webp);
     background-position: center;
   }
 }
 body .body-background .first, body .body-background .second, body .body-background .third, body .body-background .fourth {
-  background: url(/transparent_logo.png);
+  background: url(../assets/transparent_logo.png);
   background-repeat: repeat !important;
   background-size: cover !important;
   cursor: pointer;
@@ -42,7 +42,7 @@ body .container {
   margin: 20vh auto;
 }
 body .container::before {
-  background: url(/transparent_logo.png);
+  background: url(../assets/transparent_logo.png);
   background-size: cover;
   content: "";
   height: 40vh;
@@ -108,6 +108,15 @@ body .container .content form .input .name::placeholder, body .container .conten
   font-size: 1em;
   text-align: center;
 }
+.name {
+    width: 320px !important;
+    margin: 10px auto !important;
+}
+.submit {
+    width: 200px !important;
+    color: #04141a !important;
+    font-size: 1.6em !important;
+}
 body .container .content form .submit {
   align-items: center;
   background: rgb(9, 255, 229);
@@ -124,6 +133,9 @@ body .container .content form .submit {
   max-width: 400px;
   outline: none;
   width: 50vw;
+}
+.congrats{
+    color: white;
 }
 body .container .content form .submit:hover {
   /*background-color: rgb(31, 135, 123);*/
