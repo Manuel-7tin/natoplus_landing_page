@@ -5,19 +5,19 @@ from sqlalchemy import Integer, String
 from flask_sqlalchemy import SQLAlchemy
 import socket
 import time
+import os
 
 import smtplib
 from email.message import EmailMessage
 import ssl
 
 # Pseudo-constants
-MAIL_ADDRESS = "natoplus.co@gmail.com"
-MAIL_APP_PW = "ixrusxxetfjhwfxm"
-# MAIL_APP_PW = "lozqjciqzvsibxza"
+MAIL_ADDRESS = os.environ.get("NATO_GMAIL")
+MAIL_APP_PW = os.environ.get("MAIL_PASSWORD")
 
 # Create flask application
 app = Flask(__name__)
-app.secret_key = "nato123plus"
+app.secret_key = os.environ.get("APP_SECR_KEY")
 
 
 # Create database
@@ -25,7 +25,8 @@ class Base(DeclarativeBase):
     pass
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///email-addrs.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("NATO_DB_URI", "sqlite:///email-addrs.db")
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///email-addrs.db"
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -78,6 +79,13 @@ def send_welcome_mail(name, email, new=True):
             with smtplib.SMTP_SSL(host="smtp.gmail.com", port=465, context=context) as connection:
                 connection.login(user=MAIL_ADDRESS, password=MAIL_APP_PW)
                 connection.sendmail(from_addr=MAIL_APP_PW, to_addrs=email, msg=message.as_string())
+        except smtplib.SMTPConnectError as f:
+            print("error as", f)
+        except smtplib.SMTPException as e:
+            print("Encountered smtp error :", e)
+            print(MAIL_APP_PW)
+            print(MAIL_ADDRESS)
+            break
         except socket.gaierror as e:
             time.sleep(3)
             print("there is an error:", e)
@@ -92,15 +100,16 @@ def home():
         read_data(email_list, Emails)
         data = request.form
         user_email = data["email"]
-        user_name = data["name"]
-        email_saved = next((True for email in email_list if email.address == user_email), None)
-        if not email_saved:
+        user_name = next((email.name for email in email_list if email.address == user_email), None)
+        if not user_name:
+            user_name = data["name"]
             new_email = Emails(name=user_name, address=user_email)
             with app.app_context():
                 db.session.add(new_email)
                 db.session.commit()
             send_welcome_mail(name=user_name, email=user_email)
         else:
+
             send_welcome_mail(name=user_name, email=user_email, new=False)
         return render_template("done.html")
     return render_template("index.html")

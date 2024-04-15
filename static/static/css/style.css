@@ -117,6 +117,9 @@ body .container .content form .input .name::placeholder, body .container .conten
     color: #04141a !important;
     font-size: 1.6em !important;
 }
+.mail {
+    font-family: Arial, sans-serif;
+}
 body .container .content form .submit {
   align-items: center;
   background: rgb(9, 255, 229);
